@@ -27,7 +27,7 @@ $(function () {
         });
 
 
-        /* TODO: Write a test that loops through each feed
+        /* Test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
@@ -43,7 +43,7 @@ $(function () {
         });
 
 
-        /* TODO: Write a test that loops through each feed
+        /* Test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
@@ -59,29 +59,25 @@ $(function () {
     });
 
 
-    /* TODO: Write a new test suite named "The menu" */
+    /* Test suite taht test the menu funtionality */
 
     describe("The menu", function () {
-        
+
         var $menu = $(".menu-icon-link");
 
         beforeEach(function () {
             spyOnEvent(".menu-icon-link", "click");
         });
         
-        /* TODO: Write a test that ensures the menu element is
-        * hidden by default. You'll have to analyze the HTML and
-        * the CSS to determine how we're performing the
-        * hiding/showing of the menu element.
+        /* Test that ensures the menu element is
+        * hidden by default. 
         */
         it("The menu should be hidden by default", function () {
             expect($("body").hasClass("menu-hidden")).toBe(true);
         });
 
-        /* TODO: Write a test that ensures the menu changes
-         * visibility when the menu icon is clicked. This test
-         * should have two expectations: does the menu display when
-         * clicked and does it hide when clicked again.
+        /* Test that ensures the menu changes
+         * visibility when the menu icon is clicked.
          */
         it("Ensures the menu changes visibility when the menu icon is clicked", function () {
             $menu.click();
@@ -92,33 +88,60 @@ $(function () {
         });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    /* Test suite that tests the initial entries */
 
     describe("Initial Entries", function () {
-        
+
         beforeEach(function (done) {
+            /* Call the loadFeed function with the done function as a callback */
             loadFeed(0, done);
         });
-        /* TODO: Write a test that ensures when the loadFeed
+        /* Test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test wil require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-         it("Test that loadFeed function loads at least a single entry", function () {
-             expect($(".feed").find(".entry").length).toBeGreaterThan(0);
-         });
-         
+        it("Test that loadFeed function loads at least a single entry", function () {
+            /* Ckeck if the is at least one element with the .entry class */
+            expect($(".feed").find(".entry").length).toBeGreaterThan(0);
+        });
+
     });
     
-    /* TODO: Write a new test suite named "New Feed Selection"*/
+    /* Test suite that tests the new feed selection*/
     describe("New Feed Selection", function () {
-        
-        /* TODO: Write a test that ensures when a new feed is loaded
+
+
+        afterEach(function (done) {
+            loadFeed(0, done);
+        });
+        /* Test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
          */
-                 
-    });    
+
+        it("Ensure that the content is actually changing when a new feed is loaded", function (done) {
+            
+            /** Helper function that parses the entries from the html  
+           * @return Array - return an array with all the entries titles
+           */
+            function parseFeeds() {
+                var feeds = [];
+                $(".feed").find(".entry").each(function (id, value) {
+                    feeds.push($(value).first("h2").text().trim());
+                });
+                return feeds;
+            }
+
+            var initialFeeds = parseFeeds();
+
+            loadFeed(1, function () {
+                var newFeeds = parseFeeds();
+                /* Compare the initial feeed with the new ones after loadFeed has finished */ 
+                expect(newFeeds).not.toEqual(initialFeeds);
+                done();
+            });
+
+        });
+
+    });
 
 } ());
