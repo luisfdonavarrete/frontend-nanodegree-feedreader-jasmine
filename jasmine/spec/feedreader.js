@@ -104,7 +104,7 @@ $(function () {
     /* Test suite that tests the new feed selection*/
     describe('New Feed Selection', function () {
 
-        beforeEach(function (done) {
+        afterEach(function (done) {
             loadFeed(0, done);
         });
         
@@ -129,6 +129,7 @@ $(function () {
                 var newFeeds = parseFeeds();
                 /* Compare the initial feeed with the new ones after loadFeed has finished */ 
                 expect(newFeeds).not.toEqual(initialFeeds);
+                done();
             });
 
         });
