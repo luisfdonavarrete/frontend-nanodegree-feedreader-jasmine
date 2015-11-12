@@ -1,6 +1,6 @@
 # Project Overview
 
-# Neighborhood-Map-Project
+# Feed Reader Testing
 Fifth project for Udacity Front-end Nanodegree
 
 In this project I was given a web-based application that reads RSS feeds, but the application had an incomplete test suite. 
@@ -19,4 +19,4 @@ Coding the test suite required me to explore the application to understand of ho
 
 ### To see the app go to the following link:
 
-* [Neighborhood Map App](http://luisfdonavarrete.github.io/frontend-nanodegree-feedreader-jasmine/)
+* [Feed Reader Testing](http://luisfdonavarrete.github.io/frontend-nanodegree-feedreader-jasmine/)
